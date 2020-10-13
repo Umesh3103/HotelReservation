@@ -2,31 +2,28 @@ package com.bl.learning;
 
 public class HotelDetails {
 	String name;
-	String weekDayRates;
-	String weekendsRates;
+	int weekDayRates;
 	
-	public HotelDetails(String name, String weekDayRates, String weekendsRates) {
+	//Constructor
+	public HotelDetails(String name, int weekDayRates) {
 		super();
 		this.name = name;
 		this.weekDayRates = weekDayRates;
-		this.weekendsRates=weekendsRates;
 	}
+	//getting hotel name
 	public String getName() {
 		return name;
 	}
+	//setting hotel name
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getWeekDayRates() {
+	//getting week day rates
+	public int getWeekDayRates() {
 		return weekDayRates;
 	}
-	public void setWeekDayRates(String rates) {
+	//setting week day rates
+	public void setWeekDayRates(int rates) {
 		this.weekDayRates = rates;
-	}
-	public String getWeekendsRates() {
-		return weekendsRates;
-	}
-	public void setWeekendsRates(String weekendsRates) {
-		this.weekendsRates = weekendsRates;
 	}
 }
