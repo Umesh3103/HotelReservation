@@ -3,12 +3,22 @@ package com.bl.learning;
 public class HotelDetails {
 	String name;
 	int weekDayRates;
+	int weekendsRates;
 
 	// Constructor
-	public HotelDetails(String name, int weekDayRates) {
+	public HotelDetails(String name, int weekDayRates, int weekendsRates) {
 		super();
 		this.name = name;
 		this.weekDayRates = weekDayRates;
+		this.weekendsRates=weekendsRates;
+	}
+
+	public int getWeekendsRates() {
+		return weekendsRates;
+	}
+
+	public void setWeekendsRates(int weekendsRates) {
+		this.weekendsRates = weekendsRates;
 	}
 
 	// getting hotel name

@@ -12,9 +12,9 @@ import junit.framework.Assert;
 
 public class HotelTest {
 
-	HotelDetails hotel1 = new HotelDetails("LakeWood", 110);
-	HotelDetails hotel2 = new HotelDetails("BridgeWood", 150);
-	HotelDetails hotel3 = new HotelDetails("RidgeWood", 220);
+	HotelDetails hotel1 = new HotelDetails("LakeWood", 110,90);
+	HotelDetails hotel2 = new HotelDetails("BridgeWood", 150,50);
+	HotelDetails hotel3 = new HotelDetails("RidgeWood", 220,150);
 	List<HotelDetails> hotels = new ArrayList<HotelDetails>();
 
 	// adding hotels
