@@ -5,14 +5,35 @@ public class HotelDetails {
 	int weekDayRates;
 	int weekendsRates;
 	int rating;
+	int rewardeeWeekDayRates;
+	int rewardeeWeekendsRates;
 
 	// Constructor
-	public HotelDetails(String name, int weekDayRates, int weekendsRates, int rating) {
+	public HotelDetails(String name, int weekDayRates, int weekendsRates, int rating, int rewardeeWeekDayRates,
+			int rewardeeWeekendsRates) {
 		super();
 		this.name = name;
 		this.weekDayRates = weekDayRates;
 		this.weekendsRates = weekendsRates;
 		this.rating = rating;
+		this.rewardeeWeekDayRates = rewardeeWeekDayRates;
+		this.rewardeeWeekendsRates = rewardeeWeekendsRates;
+	}
+
+	public int getRewardeeWeekDayRates() {
+		return rewardeeWeekDayRates;
+	}
+
+	public void setRewardeeWeekDayRates(int rewardeeWeekDayRates) {
+		this.rewardeeWeekDayRates = rewardeeWeekDayRates;
+	}
+
+	public int getRewardeeWeekendsRates() {
+		return rewardeeWeekendsRates;
+	}
+
+	public void setRewardeeWeekendsRates(int rewardeeWeekendsRates) {
+		this.rewardeeWeekendsRates = rewardeeWeekendsRates;
 	}
 
 	public int getRating() {

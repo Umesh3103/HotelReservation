@@ -12,9 +12,9 @@ import junit.framework.Assert;
 
 public class HotelTest {
 
-	HotelDetails hotel1 = new HotelDetails("LakeWood", 110, 90, 3);
-	HotelDetails hotel2 = new HotelDetails("BridgeWood", 150, 50, 4);
-	HotelDetails hotel3 = new HotelDetails("RidgeWood", 220, 150, 5);
+	HotelDetails hotel1 = new HotelDetails("LakeWood", 110, 90, 3, 80, 80);
+	HotelDetails hotel2 = new HotelDetails("BridgeWood", 150, 50, 4, 110, 50);
+	HotelDetails hotel3 = new HotelDetails("RidgeWood", 220, 150, 5, 100, 40);
 	List<HotelDetails> hotels = new ArrayList<HotelDetails>();
 
 	// adding hotels
@@ -53,13 +53,12 @@ public class HotelTest {
 		String result = hotelManagement.cheapestBestRatedHotel(hotels, "11/09/2020", "12/09/2020");
 		Assert.assertEquals("BridgeWood", result);
 	}
-	
+
 	// finding best rated hotel
 	@Test
-	public void GivenHotelWithRating_WhenFindingBestRatedHotel_ShouldReturnHotel(){
+	public void GivenHotelWithRating_WhenFindingBestRatedHotel_ShouldReturnHotel() {
 		HotelManagement hotelManagement = new HotelManagement();
 		String result = hotelManagement.BestRatedHotel(hotels, "11/09/2020", "12/09/2020");
 		Assert.assertEquals("RidgeWood", result);
-		
 	}
 }
