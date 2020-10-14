@@ -134,6 +134,9 @@ public class HotelManagement {
 						totalCost += hotel.getRewardeeWeekDayRates();
 					}
 				}
+				else{
+					throw new IllegalArgumentException("Enter valid customer type");
+				}
 			}
 			if (totalCost <= min && rating < hotel.getRating()) {
 				rating = hotel.getRating();
