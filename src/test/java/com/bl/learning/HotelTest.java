@@ -45,4 +45,12 @@ public class HotelTest {
 		expected.add("BridgeWood");
 		Assert.assertEquals(expected, result);
 	}
+
+	// cheapest best rated hotel
+	@Test
+	public void GivenHotelsWithRatings_WhenFindingCheapest_ShouldReturnHotel() {
+		HotelManagement hotelManagement = new HotelManagement();
+		String result = hotelManagement.cheapestBestRatedHotel(hotels, "11/09/2020", "12/09/2020");
+		Assert.assertEquals("BridgeWood", result);
+	}
 }

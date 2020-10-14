@@ -37,6 +37,34 @@ public class HotelManagement {
 		return cheapestHotel;
 	}
 
+	public static String cheapestBestRatedHotel(List<HotelDetails> hotels, String date1, String date2) {
+		String[] date1List = date1.split("/");
+		int day1 = Integer.parseInt(date1List[0]);
+		String[] date2List = date2.split("/");
+		int day2 = Integer.parseInt(date2List[0]);
+		int min = Integer.MAX_VALUE;
+		int rating = 0;
+		List<String> cheapestHotel = new ArrayList<>();
+		for (HotelDetails hotel : hotels) {
+			int totalCost = 0;
+			for (int days = day1; days <= day2; days++) {
+				String day = dateToDay(Integer.toString(days) + "/" + date1List[1] + "/" + date1List[2]);
+				if (day.toLowerCase().contains("sat") || day.toLowerCase().contains("sun")) {
+					totalCost += hotel.getWeekendsRates();
+				} else {
+					totalCost += hotel.getWeekDayRates();
+				}
+			}
+			if (totalCost <= min && rating < hotel.getRating()) {
+				rating = hotel.getRating();
+				cheapestHotel.clear();
+				min = totalCost;
+				cheapestHotel.add(hotel.getName());
+			}
+		}
+		return cheapestHotel.get(0);
+	}
+
 	// converting date to day
 	public static String dateToDay(String date) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", java.util.Locale.ENGLISH);
