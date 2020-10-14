@@ -29,7 +29,7 @@ public class HotelManagement {
 				}
 			}
 		}
-		return cheapestHotel.get(0);
+		return cheapestHotel.get(cheapestHotel.size()-1);
 
 	}
 
