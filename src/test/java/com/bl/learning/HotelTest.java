@@ -61,4 +61,12 @@ public class HotelTest {
 		String result = hotelManagement.BestRatedHotel(hotels, "11/09/2020", "12/09/2020");
 		Assert.assertEquals("RidgeWood", result);
 	}
+
+	// finding best rated cheapest hotel for reward customer
+	@Test
+	public void GivenHotelWithCustomerType_WhenFindingBestRatedAndCheapest_ShouldReturnHotel() {
+		HotelManagement hotelManagement = new HotelManagement();
+		String result = hotelManagement.bestRatedCheapestHotel(hotels, "reward", "11/09/2020", "12/09/2020");
+		Assert.assertEquals("RidgeWood", result);
+	}
 }
