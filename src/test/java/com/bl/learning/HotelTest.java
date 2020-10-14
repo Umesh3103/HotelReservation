@@ -12,9 +12,9 @@ import junit.framework.Assert;
 
 public class HotelTest {
 
-	HotelDetails hotel1 = new HotelDetails("LakeWood", 110,90);
-	HotelDetails hotel2 = new HotelDetails("BridgeWood", 150,50);
-	HotelDetails hotel3 = new HotelDetails("RidgeWood", 220,150);
+	HotelDetails hotel1 = new HotelDetails("LakeWood", 110, 90);
+	HotelDetails hotel2 = new HotelDetails("BridgeWood", 150, 50);
+	HotelDetails hotel3 = new HotelDetails("RidgeWood", 220, 150);
 	List<HotelDetails> hotels = new ArrayList<HotelDetails>();
 
 	// adding hotels
@@ -29,7 +29,20 @@ public class HotelTest {
 	@Test
 	public void GivenHotels_WhenCheapestInRate_ShouldReturnHotel() {
 		HotelManagement hotelManagement = new HotelManagement();
-		String result = hotelManagement.cheapestHotelBasedOnRates(hotels, "10/09/2020", "11/09/2020");
-		Assert.assertEquals("LakeWood", result);
+		List result = hotelManagement.cheapestHotelBasedOnRates(hotels, "10/09/2020", "11/09/2020");
+		List<String> expected = new ArrayList<>();
+		expected.add("LakeWood");
+		Assert.assertEquals(expected, result);
+	}
+
+	// finding cheapest hotel for weekdays and weekends also
+	@Test
+	public void GivenHotels_WhenCheapestInWeekdaysAndWeekendsRate_ShouldReturnHotel() {
+		HotelManagement hotelManagement = new HotelManagement();
+		List result = hotelManagement.cheapestHotelBasedOnRates(hotels, "11/09/2020", "12/09/2020");
+		List<String> expected = new ArrayList<>();
+		expected.add("LakeWood");
+		expected.add("BridgeWood");
+		Assert.assertEquals(expected, result);
 	}
 }

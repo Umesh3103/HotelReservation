@@ -12,25 +12,29 @@ import java.util.List;
 public class HotelManagement {
 
 	// finding cheapest hotel for a given date range
-	public static String cheapestHotelBasedOnRates(List<HotelDetails> hotels, String date1, String date2) {
+	public static List cheapestHotelBasedOnRates(List<HotelDetails> hotels, String date1, String date2) {
 		String[] date1List = date1.split("/");
 		int day1 = Integer.parseInt(date1List[0]);
 		String[] date2List = date2.split("/");
 		int day2 = Integer.parseInt(date2List[0]);
 		int min = Integer.MAX_VALUE;
-		int totalCost = 0;
 		List<String> cheapestHotel = new ArrayList<>();
-		for (int days = day1; days <= day2; days++) {
-			for (HotelDetails hotel : hotels) {
-				if (hotel.weekDayRates <= min) {
-					min = hotel.weekDayRates;
-					cheapestHotel.add(hotel.getName());
-					totalCost += min;
+		for (HotelDetails hotel : hotels) {
+			int totalCost = 0;
+			for (int days = day1; days <= day2; days++) {
+				String day = dateToDay(Integer.toString(days) + "/" + date1List[1] + "/" + date1List[2]);
+				if (day.toLowerCase().contains("sat") || day.toLowerCase().contains("sun")) {
+					totalCost += hotel.getWeekendsRates();
+				} else {
+					totalCost += hotel.getWeekDayRates();
 				}
 			}
+			if (totalCost <= min) {
+				min = totalCost;
+				cheapestHotel.add(hotel.name);
+			}
 		}
-		return cheapestHotel.get(cheapestHotel.size()-1);
-
+		return cheapestHotel;
 	}
 
 	// converting date to day
@@ -45,7 +49,7 @@ public class HotelManagement {
 		}
 
 		sdf.applyPattern("EEE");
-		String day = sdf.format(date);
+		String day = sdf.format(myDate);
 		return day;
 	}
 }
