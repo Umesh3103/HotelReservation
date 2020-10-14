@@ -4,13 +4,23 @@ public class HotelDetails {
 	String name;
 	int weekDayRates;
 	int weekendsRates;
+	int rating;
 
 	// Constructor
-	public HotelDetails(String name, int weekDayRates, int weekendsRates) {
+	public HotelDetails(String name, int weekDayRates, int weekendsRates, int rating) {
 		super();
 		this.name = name;
 		this.weekDayRates = weekDayRates;
-		this.weekendsRates=weekendsRates;
+		this.weekendsRates = weekendsRates;
+		this.rating = rating;
+	}
+
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
 	}
 
 	public int getWeekendsRates() {
