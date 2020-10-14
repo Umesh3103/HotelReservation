@@ -80,4 +80,31 @@ public class HotelManagement {
 		String day = sdf.format(myDate);
 		return day;
 	}
+
+	// finding best rated hotel
+	public String BestRatedHotel(List<HotelDetails> hotels, String date1, String date2) {
+		String[] date1List = date1.split("/");
+		int day1 = Integer.parseInt(date1List[0]);
+		String[] date2List = date2.split("/");
+		int day2 = Integer.parseInt(date2List[0]);
+		int rating = 0;
+		List<String> cheapestHotel = new ArrayList<>();
+		for (HotelDetails hotel : hotels) {
+			int totalCost = 0;
+			for (int days = day1; days <= day2; days++) {
+				String day = dateToDay(Integer.toString(days) + "/" + date1List[1] + "/" + date1List[2]);
+				if (day.toLowerCase().contains("sat") || day.toLowerCase().contains("sun")) {
+					totalCost += hotel.getWeekendsRates();
+				} else {
+					totalCost += hotel.getWeekDayRates();
+				}
+			}
+			if (rating < hotel.getRating()) {
+				rating = hotel.getRating();
+				cheapestHotel.clear();
+				cheapestHotel.add(hotel.getName());
+			}
+		}
+		return cheapestHotel.get(0);
+	}
 }
