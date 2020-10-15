@@ -72,11 +72,16 @@ public class HotelTest {
 
 	// finding best rated cheapest hotel for reward customer
 	@Test
-	public void GivenHotelWithCustomerType_WhenFindingBestRatedAndCheapestUsingJavaStream_ShouldReturnHotel() {
+	public void GivenHotelWithCustomerReward_WhenFindingBestRatedAndCheapestUsingJavaStream_ShouldReturnHotel() {
 		HotelManagement hotelManagement = new HotelManagement();
-		List expected = new ArrayList();
-		expected.add("RidgeWood");
-		List result = hotelManagement.bestRatedCheapestRewardHotelStream(hotels, "11/09/2020", "12/09/2020");
-		Assert.assertEquals(expected, result);
+		String result = hotelManagement.bestRatedCheapestRewardHotelStream(hotels, "11/09/2020", "12/09/2020");
+		Assert.assertEquals("RidgeWood", result);
+	}
+
+	@Test
+	public void GivenHotelWithCustomerRegular_WhenFindingBestRatedAndCheapestUsingJavaStream_ShouldReturnHotel() {
+		HotelManagement hotelManagement = new HotelManagement();
+		String result = hotelManagement.bestRatedCheapestRegularHotelStream(hotels, "11/09/2020", "12/09/2020");
+		Assert.assertEquals("BridgeWood", result);
 	}
 }

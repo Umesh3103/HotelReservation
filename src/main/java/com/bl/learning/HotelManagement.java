@@ -21,14 +21,12 @@ public class HotelManagement {
 	// finding cheapest hotel for a given date range
 	public static List cheapestHotelBasedOnRates(List<HotelDetails> hotels, String date1, String date2) {
 		String[] date1List = date1.split("/");
-		int day1 = Integer.parseInt(date1List[0]);
 		String[] date2List = date2.split("/");
-		int day2 = Integer.parseInt(date2List[0]);
 		int min = Integer.MAX_VALUE;
 		List<String> cheapestHotel = new ArrayList<>();
 		for (HotelDetails hotel : hotels) {
 			int totalCost = 0;
-			for (int days = day1; days <= day2; days++) {
+			for (int days = getDayAsInteger(date1List); days <= getDayAsInteger(date2List); days++) {
 				String day = dateToDay(Integer.toString(days) + "/" + date1List[1] + "/" + date1List[2]);
 				if (day.toLowerCase().contains("sat") || day.toLowerCase().contains("sun")) {
 					totalCost += hotel.getWeekendsRates();
@@ -48,15 +46,13 @@ public class HotelManagement {
 	// finding cheapest best rated hotel
 	public static String cheapestBestRatedHotel(List<HotelDetails> hotels, String date1, String date2) {
 		String[] date1List = date1.split("/");
-		int day1 = Integer.parseInt(date1List[0]);
 		String[] date2List = date2.split("/");
-		int day2 = Integer.parseInt(date2List[0]);
 		int min = Integer.MAX_VALUE;
 		int rating = 0;
 		List<String> cheapestHotel = new ArrayList<>();
 		for (HotelDetails hotel : hotels) {
 			int totalCost = 0;
-			for (int days = day1; days <= day2; days++) {
+			for (int days = getDayAsInteger(date1List); days <= getDayAsInteger(date2List); days++) {
 				String day = dateToDay(Integer.toString(days) + "/" + date1List[1] + "/" + date1List[2]);
 				if (day.toLowerCase().contains("sat") || day.toLowerCase().contains("sun")) {
 					totalCost += hotel.getWeekendsRates();
@@ -93,14 +89,12 @@ public class HotelManagement {
 	// finding best rated hotel
 	public String BestRatedHotel(List<HotelDetails> hotels, String date1, String date2) {
 		String[] date1List = date1.split("/");
-		int day1 = Integer.parseInt(date1List[0]);
 		String[] date2List = date2.split("/");
-		int day2 = Integer.parseInt(date2List[0]);
 		int rating = 0;
 		List<String> cheapestHotel = new ArrayList<>();
 		for (HotelDetails hotel : hotels) {
 			int totalCost = 0;
-			for (int days = day1; days <= day2; days++) {
+			for (int days = getDayAsInteger(date1List); days <= getDayAsInteger(date2List); days++) {
 				String day = dateToDay(Integer.toString(days) + "/" + date1List[1] + "/" + date1List[2]);
 				if (day.toLowerCase().contains("sat") || day.toLowerCase().contains("sun")) {
 					totalCost += hotel.getWeekendsRates();
@@ -120,15 +114,13 @@ public class HotelManagement {
 	// finding best rated cheapest hotel for reward customer
 	public String bestRatedCheapestHotel(List<HotelDetails> hotels, String customerType, String date1, String date2) {
 		String[] date1List = date1.split("/");
-		int day1 = Integer.parseInt(date1List[0]);
 		String[] date2List = date2.split("/");
-		int day2 = Integer.parseInt(date2List[0]);
 		int min = Integer.MAX_VALUE;
 		int rating = 0;
 		List<String> cheapestHotel = new ArrayList<>();
 		for (HotelDetails hotel : hotels) {
 			int totalCost = 0;
-			for (int days = day1; days <= day2; days++) {
+			for (int days = getDayAsInteger(date1List); days <= getDayAsInteger(date2List); days++) {
 				String day = dateToDay(Integer.toString(days) + "/" + date1List[1] + "/" + date1List[2]);
 				if (customerType.toLowerCase().equals("regular")) {
 					if (day.toLowerCase().contains("sat") || day.toLowerCase().contains("sun")) {
@@ -157,16 +149,14 @@ public class HotelManagement {
 	}
 
 	// finding cheapest best rated hotel using java streams
-	public List bestRatedCheapestRewardHotelStream(List<HotelDetails> hotels, String date1, String date2) {
+	public String bestRatedCheapestRewardHotelStream(List<HotelDetails> hotels, String date1, String date2) {
 		String[] date1List = date1.split("/");
-		int day1 = Integer.parseInt(date1List[0]);
 		String[] date2List = date2.split("/");
-		int day2 = Integer.parseInt(date2List[0]);
-
+		int min = Integer.MAX_VALUE;
 		List<String> cheapestHotel = new ArrayList<>();
 		for (HotelDetails hotel : hotels) {
 			int totalCost = 0;
-			for (int days = day1; days <= day2; days++) {
+			for (int days = getDayAsInteger(date1List); days <= getDayAsInteger(date2List); days++) {
 				String day = dateToDay(Integer.toString(days) + "/" + date1List[1] + "/" + date1List[2]);
 				if (day.toLowerCase().contains("sat") || day.toLowerCase().contains("sun")) {
 					totalCost += hotel.getRewardeeWeekendsRates();
@@ -174,18 +164,53 @@ public class HotelManagement {
 					totalCost += hotel.getRewardeeWeekDayRates();
 				}
 			}
+			if (totalCost <= min) {
+				min = totalCost;
+				cheapestHotel.add(hotel.getName());
+			}
 			rewardCostMap.put(hotel.getName(), totalCost);
 			ratingMap.put(hotel.getName(), hotel.getRating());
 		}
-		String result = rewardCostMap.entrySet().stream().min(Map.Entry.comparingByValue()).get().getKey();
-		String bestRatingHotel = ratingMap.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
 
-		if (bestRatingHotel.equals(result)) {
-			cheapestHotel.add(result);
-		} else {
-			cheapestHotel.add(result);
-			cheapestHotel.add(bestRatingHotel);
+		String result = ratingMap.entrySet().stream().filter(p -> cheapestHotel.contains(p.getKey()))
+				.max(Map.Entry.comparingByValue()).get().getKey();
+
+		return result;
+	}
+
+	// finding best rated cheapest hotel for regular customer using java streams
+	public String bestRatedCheapestRegularHotelStream(List<HotelDetails> hotels, String date1, String date2) {
+		String[] date1List = date1.split("/");
+		String[] date2List = date2.split("/");
+		int min = Integer.MAX_VALUE;
+		List<String> cheapestHotel = new ArrayList<>();
+		for (HotelDetails hotel : hotels) {
+			int totalCost = 0;
+			for (int days = getDayAsInteger(date1List); days <= getDayAsInteger(date2List); days++) {
+				String day = dateToDay(Integer.toString(days) + "/" + date1List[1] + "/" + date1List[2]);
+				if (day.toLowerCase().contains("sat") || day.toLowerCase().contains("sun")) {
+					totalCost += hotel.getWeekendsRates();
+				} else {
+					totalCost += hotel.getWeekDayRates();
+				}
+			}
+			if (totalCost <= min) {
+				min = totalCost;
+				cheapestHotel.add(hotel.getName());
+			}
+			regularCostMap.put(hotel.getName(), totalCost);
+			ratingMap.put(hotel.getName(), hotel.getRating());
 		}
-		return cheapestHotel;
+
+		String result = ratingMap.entrySet().stream().filter(p -> cheapestHotel.contains(p.getKey()))
+				.max(Map.Entry.comparingByValue()).get().getKey();
+
+		return result;
+	}
+
+	// getting day as integer
+	public static int getDayAsInteger(String[] dateList) {
+		int day = Integer.parseInt(dateList[0]);
+		return day;
 	}
 }
