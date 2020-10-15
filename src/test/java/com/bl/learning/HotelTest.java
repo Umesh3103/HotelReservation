@@ -69,4 +69,14 @@ public class HotelTest {
 		String result = hotelManagement.bestRatedCheapestHotel(hotels, "reward", "11/09/2020", "12/09/2020");
 		Assert.assertEquals("RidgeWood", result);
 	}
+
+	// finding best rated cheapest hotel for reward customer
+	@Test
+	public void GivenHotelWithCustomerType_WhenFindingBestRatedAndCheapestUsingJavaStream_ShouldReturnHotel() {
+		HotelManagement hotelManagement = new HotelManagement();
+		List expected = new ArrayList();
+		expected.add("RidgeWood");
+		List result = hotelManagement.bestRatedCheapestRewardHotelStream(hotels, "11/09/2020", "12/09/2020");
+		Assert.assertEquals(expected, result);
+	}
 }
